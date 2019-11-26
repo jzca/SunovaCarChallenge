@@ -1,0 +1,124 @@
+﻿@model  List<CarViewModel>
+@{
+    ViewBag.Title = "List of cars";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@if (!Model.Any())
+{
+    <div style="margin-top:15px;">
+        <h2 class="text-info"><strong>There are no cars. Perhaps problems have occurred on the server-side. </strong></h2>
+    </div>
+
+    if (ViewBag.ErroMsg != null)
+    {
+        <div style="margin-top:20px;">
+            <h2 class="text-danger">@ViewBag.ErroMsg</h2>
+        </div>
+    }
+}
+else
+{
+
+    using (Html.BeginForm("Filter", "Home", FormMethod.Get))
+    {
+        <input type="text" name="filter" placeholder="Keyword" required />
+        <input type="submit" value="Submit" />
+    }
+    <table class="table table-striped table-auto-sort">
+        <thead>
+            <tr>
+                <th>
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Mileage", up = true }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-primary">
+                            &#8593;
+                        </button>
+                    }
+                    Mileage
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Mileage", up = false }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-success">
+                            &#8595;
+                        </button>
+                    }
+                </th>
+                <th>
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Name", up = true }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-primary">
+                            &#8593;
+                        </button>
+                    }
+                    Name
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Name", up = false }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-success">
+                            &#8595;
+                        </button>
+                    }
+                </th>
+                <th>
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Model", up = true }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-primary">
+                            &#8593;
+                        </button>
+                    }
+                    Model
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Model", up = false }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-success">
+                            &#8595;
+                        </button>
+                    }
+                </th>
+                <th>
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Engine", up = true }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-primary">
+                            &#8593;
+                        </button>
+                    }
+                    Engine
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Engine", up = false }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-success">
+                            &#8595;
+                        </button>
+                    }
+                </th>
+                <th>
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Color", up = true }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-primary">
+                            &#8593;
+                        </button>
+                    }
+                    Color
+                    @using (Html.BeginForm("Sort", "Home", new { name = "Color", up = false }, FormMethod.Post))
+                    {
+                        <button type="submit" class="btn btn-success">
+                            &#8595;
+                        </button>
+                    }
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.Mileage</td>
+                    <td>@record.Name</td>
+                    <td>@record.Model</td>
+                    <td>@record.Engine</td>
+                    <td>@record.Color</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
